@@ -253,7 +253,8 @@ class GameTree(Heuristic):
             # 3-1. 만약 바로 이기는 경우에는 더이상의 탐색을 하지 않고 해당 column을 return
             if childScore > 1000 and (self.maxScore is None or self.maxScore < childScore):
                 self.maxScore = childScore
-                self.ply = (self.width * self.height - (childScore - 1000) + 1) - self.moves
+                maxPly = (self.width * self.height - (childScore - 1000) + 1) - self.moves
+                self.ply = maxPly if (self.ply >= maxPly) else self.ply
                 return col
             
             # 4. 탐색하는데 걸린 시간을 계산하여 ply를 조정
